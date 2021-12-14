@@ -1,42 +1,46 @@
-#!/usr/bin/env bash
+: "${VERSION_PATH:=version.txt}"
 
-version::_new() {
-  echo '# version'
-  echo 'VERSION_PATH=version.txt'
+semver::help() {
+  echo "# semver - https://github.com/sschmid/bee-semver"
+  echo 'VERSION_PATH=version.txt # default'
 }
 
-version::read() {
-  assert_file VERSION_PATH
+semver::read() {
+  if [[ ! -f "${VERSION_PATH}" ]]; then
+    bee::log_error "${VERSION_PATH} not found!"
+    exit 1
+  fi
+
   cat "${VERSION_PATH}"
 }
 
-version::write() {
+semver::write() {
   echo "$1" > "${VERSION_PATH}"
   cat "${VERSION_PATH}"
 }
 
-version::bump_major() {
+semver::major() {
   local version major
-  version="$(version::read)"
+  version="$(semver::read)"
   major="${version%%.*}"
-  version::write "$(( major + 1 )).0.0"
+  semver::write "$((major + 1)).0.0"
 }
 
-version::bump_minor() {
+semver::minor() {
   local version major no_major minor
-  version="$(version::read)"
+  version="$(semver::read)"
   major="${version%%.*}"
   no_major="${version#*.}"
   minor="${no_major%%.*}"
-  version::write "${major}.$(( minor + 1 )).0"
+  semver::write "${major}.$((minor + 1)).0"
 }
 
-version::bump_patch() {
+semver::patch() {
   local version major no_major minor patch
-  version="$(version::read)"
+  version="$(semver::read)"
   major="${version%%.*}"
   no_major="${version#*.}"
   minor="${no_major%%.*}"
   patch="${no_major#*.}"
-  version::write "${major}.${minor}.$(( patch + 1 ))"
+  semver::write "${major}.${minor}.$((patch + 1))"
 }
