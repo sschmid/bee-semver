@@ -1,22 +1,23 @@
-# version
+# semver
 Read, write and bump version numbers
+Please see https://semver.org
 
-## `version::read`
+## `semver::read`
 Print the current version
 
-## `version::write <version>`
+## `semver::write <version>`
 Write the specified version to `VERSION_PATH`
 
 ### Example
 ```sh
-bee version::write 0.1.0
+bee semver::write 0.1.0
 ```
 
-## `version::bump_major`
+## `semver::major`
 Bump the major version
 
-## `version::bump_minor`
+## `semver::minor`
 Bump the minor version
 
-## `version::bump_patch`
+## `semver::patch`
 Bump the path version
