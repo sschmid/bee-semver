@@ -8,19 +8,19 @@ setup() {
 }
 
 _setup_version() {
-  export VERSION_PATH="${BATS_TEST_TMPDIR}/version.txt"
-  echo "1.2.3" > "${VERSION_PATH}"
+  export SEMVER_PATH="${BATS_TEST_TMPDIR}/version.txt"
+  echo "1.2.3" > "${SEMVER_PATH}"
 }
 
 _semver() {
   run bee --batch "source ${semver}" "$@"
 }
 
-@test "fails when VERSION_PATH does not exist" {
-  export VERSION_PATH="${BATS_TEST_TMPDIR}/unknown.md"
+@test "fails when SEMVER_PATH does not exist" {
+  export SEMVER_PATH="${BATS_TEST_TMPDIR}/unknown.md"
   _semver semver::read
   assert_failure
-  assert_output "${BEE_ERR} ${VERSION_PATH} not found!"
+  assert_output "${BEE_ERR} ${SEMVER_PATH} not found!"
 }
 
 @test "reads version" {

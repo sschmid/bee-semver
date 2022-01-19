@@ -1,22 +1,37 @@
-: "${VERSION_PATH:=version.txt}"
+: "${SEMVER_PATH:=version.txt}"
 
 semver::help() {
-  echo "# semver - https://github.com/sschmid/bee-semver"
-  echo 'VERSION_PATH=version.txt # default'
+  cat << 'EOF'
+Read, write and bump version numbers - https://github.com/sschmid/bee-semver
+Please see https://semver.org
+
+template:
+
+  SEMVER_PATH=version.txt # default
+
+usage:
+
+  read              print the current version
+  write <version>   write the specified version to SEMVER_PATH
+  major             bump the major version
+  minor             bump the minor version
+  patch             bump the path version
+
+EOF
 }
 
 semver::read() {
-  if [[ ! -f "${VERSION_PATH}" ]]; then
-    bee::log_error "${VERSION_PATH} not found!"
+  if [[ ! -f "${SEMVER_PATH}" ]]; then
+    bee::log_error "${SEMVER_PATH} not found!"
     exit 1
   fi
 
-  cat "${VERSION_PATH}"
+  cat "${SEMVER_PATH}"
 }
 
 semver::write() {
-  echo "$1" > "${VERSION_PATH}"
-  cat "${VERSION_PATH}"
+  echo "$1" > "${SEMVER_PATH}"
+  cat "${SEMVER_PATH}"
 }
 
 semver::major() {
