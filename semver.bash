@@ -2,9 +2,6 @@
 
 semver::help() {
   cat << 'EOF'
-Read, write and bump version numbers - https://github.com/sschmid/bee-semver
-Please see https://semver.org
-
 template:
 
   SEMVER_PATH=version.txt # default
