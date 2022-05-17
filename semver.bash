@@ -12,7 +12,7 @@ usage:
   write <version>   write the specified version to SEMVER_PATH
   major             bump the major version
   minor             bump the minor version
-  patch             bump the path version
+  patch             bump the patch version
 
 EOF
 }
